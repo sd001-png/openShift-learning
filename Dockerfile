@@ -1,4 +1,4 @@
-FROM bfg/api-java8-maven-exp-srv-builder
+FROM openjdk:8
 EXPOSE 8080
 
 RUN mkdir -p /usr/src/app
