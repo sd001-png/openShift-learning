@@ -1,4 +1,10 @@
-FROM openjdk:8
+FROM bfg/api-java8-maven-exp-srv-builder
 EXPOSE 8080
-ADD target/FirstHelloworld-0.0.1-SNAPSHOT.jar FirstHelloworld-0.0.1-SNAPSHOT
-ENTRYPOINT ["java", "-jar", "FirstHelloworld-0.0.1-SNAPSHOT.jar""]
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+ONBUILD ADD . /usr/src/app
+ONBUILD RUN mvn install
+ONBUILD ADD /usr/src/app/target/FirstHelloworld-0.0.1-SNAPSHOT.jar app.jar
+
+CMD ["java","-jar","/app.jar"]
